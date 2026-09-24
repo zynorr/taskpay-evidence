@@ -1,0 +1,11 @@
+{
+  "name": "config-validator-cli",
+  "version": "1.0.0",
+  "type": "module",
+  "description": "A tiny CLI that validates a JSON config against a hard‑coded schema.",
+  "scripts": {
+    "test": "node --test"
+  },
+  "author": "Koda",
+  "license": "MIT"
+}
