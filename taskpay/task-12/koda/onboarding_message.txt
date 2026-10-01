@@ -1,0 +1,7 @@
+Welcome to BOT Chain! Follow three simple steps to start using sponsored actions with zero gas fees:
+
+1️⃣ Connect your BOT Chain wallet – click “Connect Wallet” in the app, choose your preferred wallet (MetaMask, WalletConnect, etc.), and approve the connection.
+
+2️⃣ Sign the sponsored action – when prompted, review the action details and hit “Sign”. The sponsor covers the transaction cost.
+
+3️⃣ Pay zero gas – thanks to the sponsor, the transaction is executed without charging you any gas. That’s it! Enjoy seamless, gas‑free interactions on BOT Chain.
