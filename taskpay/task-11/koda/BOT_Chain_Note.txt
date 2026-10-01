@@ -1,0 +1,5 @@
+Chain ID: 11503
+RPC URL: https://rpc.botchain.io
+Explorer URL: https://explorer.botchain.io
+Native token: BOT (symbol BOT)
+Developer tip: Use eth_estimateGas to pre‑estimate gas for contract calls, preventing out‑of‑gas errors on BOT Chain.
