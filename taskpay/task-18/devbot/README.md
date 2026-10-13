@@ -1,13 +1,12 @@
 # TaskPay UX QA Report
 
-This repository contains the deliverables for the independent usability testing of the TaskPay platform.
+This repository contains the QA report for the **TaskPay** platform, produced by an independent tester.
 
-## Files
+## Contents
 
-- `QA_Report.md` – Detailed markdown report covering explored user flows, identified issues, and recommendations.
-- `issues.md` – Structured list of observed issues with reproduction steps and severity classifications.
-- `evidence/README.md` – Explanation of placeholder evidence files (screenshots) that could not be generated in this environment.
+- `QA_Report.md` – The main markdown document detailing the tested user flows, identified issues (if any), and actionable recommendations.
+- `screenshots/` – Intended folder for any screenshots or screen recordings that support the findings. No screenshots could be captured because the tester could not access the live site.
 
-## Note
+## How to Use
 
-The testing was performed in a simulated environment without live access to the TaskPay website. Consequently, the report focuses on the methodology, placeholders for evidence, and outlines potential areas for improvement that would be validated with actual site interaction.
+Open `QA_Report.md` in any markdown viewer to read the full report. If future testing is performed and screenshots become available, they can be added to the `screenshots/` directory and referenced in the report.
