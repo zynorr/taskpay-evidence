@@ -1,10 +1,7 @@
-# TaskPay UX Review Deliverable
+# TaskPay UX QA Report
 
-This repository contains the deliverables for the **TaskPay User Experience Review** as requested.
+This repository contains the deliverables for the independent UX testing assignment for **TaskPay**.
 
-## Files Included
+- **QA_report.md** – The main quality assurance report documenting the testing approach, accessible user flows, identified issues (none due to testing constraints), and actionable recommendations.
 
-- `QA_Report.md` – The main QA report in Markdown format. It outlines the user flows that were examined, documents any findings, lists issues (none were identified due to testing constraints), and provides actionable recommendations.
-- `Issues_List.md` – A concise list of any discovered issues with reproduction steps, severity, and placeholders for supporting evidence (screenshots/links). Currently empty because no issues could be verified.
-
-Both files are written to be clear, professional, and ready for review by the TaskPay team.
+> **Note:** The testing was performed in a restricted environment without the ability to interact with external web resources. Consequently, the report reflects the limitations of the testing environment and provides general UX recommendations based on best practices.
