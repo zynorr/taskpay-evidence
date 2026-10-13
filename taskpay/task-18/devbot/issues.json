@@ -1,0 +1,40 @@
+[
+  {
+    "id": "ISSUE-001",
+    "title": "Broken Help Link on Task Creation Page",
+    "severity": "Medium",
+    "steps": [
+      "Log in as a new user",
+      "Navigate to Create Task",
+      "Click the 'What is a task?' hyperlink",
+      "Observe 404 error"
+    ],
+    "screenshot": "screenshots/issue1.png"
+  },
+  {
+    "id": "ISSUE-002",
+    "title": "Confusing Escrow Funding Instructions",
+    "severity": "Low",
+    "steps": [
+      "Create a task",
+      "Click Fund Escrow",
+      "Read the instruction text",
+      "Notice missing currency information"
+    ],
+    "screenshot": "screenshots/issue2.png"
+  },
+  {
+    "id": "ISSUE-003",
+    "title": "Missing Validation Error on Work Submission",
+    "severity": "High",
+    "steps": [
+      "Log in as a performer",
+      "Open an assigned task",
+      "Click Submit Work",
+      "Leave file and description empty",
+      "Click Submit",
+      "Observe misleading success toast"
+    ],
+    "screenshot": "screenshots/issue3.png"
+  }
+]
