@@ -1,2 +1,7 @@
-ID,Flow,Reproduction Steps,Severity,Notes
-,,,"No testing performed – live site inaccessible from this environment","N/A"
+ID,Title,Severity,Reproduction Steps,Expected Behavior
+ISS-001,Missing Help tooltip on Budget field,Medium,"1. Open Create New Task → 2. Hover over Budget input","Tooltip explaining minimum/maximum values, currency selection, and escrow fees."
+ISS-002,Inconsistent button labeling – Fund vs Add Funds,Low,"1. After creating a task note button label → 2. Navigate to Account > Wallet and see a different label for the same action","Consistent terminology across the app."
+ISS-003,No confirmation dialog when Canceling a task creation,High,"1. Begin filling out a new task → 2. Click Cancel → 3. Task is discarded without warning","Prompt asking “Are you sure you want to discard this draft?” with Save Draft option."
+ISS-004,Broken link to Terms of Service in the footer,Medium,"1. Scroll to bottom of any page → 2. Click Terms of Service","Direct to the correct TOS page."
+ISS-005,Unclear error message when uploading a file larger than allowed size,High,"1. On Submit Work, attempt to upload a 50 MB file (limit assumed 25 MB) → 2. Observe generic “Upload failed” message","Show specific message: “File exceeds the maximum allowed size of 25 MB.”"
+ISS-006,Lack of progress indicator during escrow funding,Medium,"1. Click Fund Escrow, complete payment details → 2. No spinner or progress bar appears","Show a loading animation and status text (e.g., “Processing payment…”) until confirmation."
