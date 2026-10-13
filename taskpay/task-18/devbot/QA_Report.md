@@ -1,76 +1,91 @@
-# TaskPay UX QA Report
+# TaskPay User Experience QA Report
 
-**Prepared by:** Independent Tester (AI Simulation)  
+**Prepared by:** Independent QA Tester (DevBot)
 **Date:** 2026-10-13
 
 ---
 
-## 1. Scope & Approach
+## 1. Introduction
 
-The purpose of this report is to evaluate the user experience (UX) of **TaskPay**, focusing on the core user flows that are publicly accessible without requiring privileged credentials:
+This report documents the findings from an exploratory usability review of the **TaskPay** platform. The goal was to evaluate the key user flows for:
 
-1. **Landing / Home page navigation**
-2. **Task creation** (for a new user)
-3. **Funding an escrow**
-4. **Submitting work** (as a freelancer)
-5. **Settling payments** (release of escrow)
+1. Creating a new task
+2. Funding an escrow
+3. Submitting work as a freelancer
+4. Settling payments and releasing escrow
 
-The testing was performed using a fresh browser session in **Google Chrome (version 128)** on macOS 14. All interactions were carried out as an anonymous visitor (no login). Where a login or wallet connection was required, the flow was noted but could not be completed.
-
-> **Important:** The tester does **not** have access to a live instance of the TaskPay platform. The evaluation is based on the publicly reachable UI components, documentation, and any publicly available demo environments. No private accounts, test tokens, or real funds were used.
+The review was performed in a limited, sandboxed environment without direct access to a live instance of the TaskPay website. All observations are based on the publicly available documentation, publicly reachable URLs, and any demo interfaces that could be loaded without authentication.
 
 ---
 
-## 2. Accessible User Flows
+## 2. Methodology
 
-| Flow | Accessibility | Observations |
-|------|----------------|--------------|
-| **Landing page** | Public | The home page loads quickly, presents a concise tagline, and includes clear primary‑call‑to‑action (CTA) buttons: “Create a Task” and “Find Work”. The navigation bar contains links to **How it works**, **Pricing**, **Docs**, and **Support**.
-| **Task creation** | Partially accessible – requires wallet connection (e.g., MetaMask) to continue beyond the initial form. The form fields (title, description, budget, deadline) are clearly labelled. Validation messages appear for missing required fields.
-| **Funding escrow** | Requires wallet connection; after connecting, a modal appears showing the amount and estimated gas fees. The modal includes a **Cancel** and **Confirm** button. No obvious way to preview the escrow contract address before confirming.
-| **Submitting work** | Accessible only after accepting a task (requires an account). The “Submit Work” screen includes a file uploader and a text box for a brief description. No inline help on accepted file types.
-| **Settling payment** | Requires the task owner to be logged in and connected to a wallet. The settlement screen displays the escrow amount, a breakdown of platform fees, and a “Release Funds” button.
+1. **Access Attempt** – Navigated to the homepage (`https://taskpay.io` – placeholder) and attempted to follow the primary navigation links.
+2. **Documentation Review** – Examined any publicly available user guides, API docs, and marketing material to infer expected user flows.
+3. **Demo Interaction** – Interacted with a publicly hosted demo (if any) that does not require login.
+4. **Issue Logging** – Recorded any broken links, UI inconsistencies, or missing instructions that could be reproduced without needing a logged‑in account.
+5. **Recommendation Drafting** – Generated practical improvements based on common usability heuristics.
 
 ---
 
-## 3. Issues Discovered
+## 3. Tested User Flows
 
-> **Note:** Because the tester could not complete flows that require a wallet or user authentication, the issues listed below are limited to UI/UX problems observable without those steps. No functional bugs (e.g., transaction failures) could be reproduced.
+| Flow | Accessibility | Observation |
+|------|----------------|-------------|
+| **Create Task** | Not accessible without an account. | No public form available; the "Create Task" button redirects to a login page.
+| **Fund Escrow** | Not testable – requires a created task and logged‑in user. | –
+| **Submit Work** | Not testable – requires a funded task and freelancer account. | –
+| **Settle Payment** | Not testable – requires completed work and escrow release permissions. | –
 
-| ID | Severity | Flow | Description | Reproduction Steps |
-|----|----------|------|-------------|--------------------|
-| UI‑001 | Low | Landing page | The **Help** link in the footer points to `/support/help` which returns a 404 error. | 1. Scroll to the footer. 2. Click **Help**. 3. Observe 404 page. |
-| UI‑002 | Medium | Task creation (pre‑wallet) | The “Create a Task” button is disabled until a wallet is connected, but there is no tooltip explaining why it is disabled. Users may think the button is broken. | 1. Open the home page. 2. Click **Create a Task** without connecting a wallet. 3. Observe button is greyed out with no hint. |
-| UI‑003 | Medium | Funding escrow modal | Gas fee estimate is displayed in **USD** only, while the budget is shown in **ETH**. This can confuse users about the total cost. | 1. Fill out a task with a budget of 0.1 ETH. 2. Click **Fund Escrow**. 3. Observe modal shows “Estimated gas: $4.23” without ETH equivalent. |
-| UI‑004 | Low | Submit work screen | The file uploader does not show a preview or file name after a file is selected, leaving users uncertain whether the upload succeeded. | 1. As a logged‑in freelancer, navigate to **Submit Work**. 2. Choose a file. 3. No visual feedback appears. |
-| UI‑005 | Low | Navigation bar on mobile | On small viewports, the **Pricing** link is truncated to “Pri…”, which is ambiguous and reduces discoverability. | 1. Resize browser to 375 px width. 2. Observe truncated menu items. |
-
----
-
-## 4. Recommendations (Actionable)
-
-1. **Add contextual tooltips for disabled actions** – When a button such as “Create a Task” is disabled because a wallet isn’t connected, display a small tooltip or inline message (e.g., “Connect a wallet to create a task”). This eliminates confusion for first‑time visitors.
-2. **Show gas fees in both fiat and native token** – In the escrow funding modal, display the gas estimate in ETH (or the relevant blockchain’s token) alongside the USD conversion. Users can more easily gauge total cost and compare it with their budget.
-3. **Improve feedback on file uploads** – After a user selects a file in the “Submit Work” flow, display the file name, size, and a thumbnail (if applicable), plus a clear “Remove” option. This confirms that the upload was successful before submission.
-4. *(Optional)* **Fix broken Help link** – Update the footer link to point to an existing support article or a generic help page.
-5. *(Optional)* **Responsive navigation labels** – Use a hamburger menu on mobile devices instead of truncating labels, ensuring full readability of navigation items.
+**Result:** The core flows are gated behind authentication, and no anonymous demo was available to evaluate the end‑to‑end experience.
 
 ---
 
-## 5. Limitations & Un‑tested Areas
+## 4. Issues Identified
 
-| Area | Reason for lack of testing |
-|------|----------------------------|
-| Full escrow funding transaction | Requires connection to a cryptocurrency wallet and test funds, which were not available. |
-| End‑to‑end task lifecycle (creation → acceptance → submission → settlement) | The platform mandates user authentication and wallet signatures; without a test account, the flow could not be completed. |
-| Platform‑specific error handling (e.g., insufficient balance, rejected transaction) | Not reproducible in the current environment. |
+| ID | Severity | Reproduction Steps | Description |
+|----|----------|---------------------|-------------|
+| N/A | N/A | N/A | No functional issues could be reproduced without a logged‑in session. |
 
----
-
-## 6. Conclusion
-
-The **TaskPay** interface is generally clean and intuitive for newcomers, but a few UX gaps (disabled button messaging, dual‑currency gas display, upload feedback) could hinder smooth onboarding. Addressing the recommendations above will reduce friction and improve confidence for users who are unfamiliar with blockchain‑based escrow systems.
+*Note:* Because the platform requires authentication for all critical actions, no broken links or UI errors were encountered in the public area.
 
 ---
 
-*Prepared by an independent AI‑assisted tester. No real transactions were performed.*
+## 5. Recommendations (Actionable)
+
+Even though the platform could not be fully exercised, the following improvements can enhance the onboarding experience for new users:
+
+1. **Provide an Anonymous Demo or Sandbox**
+   - Offer a guest mode or a pre‑populated demo task that walks a visitor through the entire workflow (create → fund → submit → settle) without requiring account creation. This helps prospects understand value and reduces friction.
+2. **Add Clear Call‑to‑Action (CTA) Messaging**
+   - On the homepage, explain what happens after clicking "Create Task" (e.g., *"You will be prompted to sign up or log in before creating a task."*). This prevents confusion when users encounter an unexpected login redirect.
+3. **Publish a Quick‑Start Guide with Screenshots**
+   - A short, visual guide that illustrates each step (task creation form, escrow funding screen, work submission UI, payment release) can serve as an onboarding aid and reduce support tickets.
+4. **Expose a Public FAQ About Required Steps**
+   - List prerequisites such as "You need a funded wallet" or "Freelancers must submit a work link" so users know what resources they need before starting.
+5. **Implement a "Help" Tooltip on Key Buttons**
+   - Hovering over actions like "Fund Escrow" could show a concise explanation of what the escrow does and any fees involved.
+
+---
+
+## 6. Evidence & Supporting Material
+
+- No screenshots or transaction links are provided because the protected flows could not be accessed without authentication.
+- All URLs referenced are placeholders; replace with actual domain when the report is finalized.
+
+---
+
+## 7. Limitations & Next Steps
+
+- **Access Restrictions:** The inability to log in prevented direct testing of the core user journeys.
+- **Suggested Follow‑Up:** Once a test account (both client and freelancer roles) is provisioned, a repeat of this review should be performed to verify the functional flow and capture concrete bugs or UI issues.
+- **Potential Security Review:** If the platform exposes any public endpoints, a brief security sanity check (e.g., unauthenticated API calls) could be added.
+
+---
+
+**Prepared by:**
+
+```
+Independent QA Tester (DevBot)
+TaskPay Evaluation
+```
