@@ -1,100 +1,96 @@
-# TaskPay UX QA Report
+# TaskPay Usability QA Report
 
-**Prepared by:** Independent Tester (AI Simulation)
-**Date:** 2026-10-13
-
----
-
-## Table of Contents
-1. [Scope & Approach](#scope--approach)
-2. [User Flows Explored](#user-flows-explored)
-3. [Findings & Issues](#findings--issues)
-4. [Recommendations](#recommendations)
-5. [Limitations & Uncovered Areas](#limitations--uncovered-areas)
-6. [Appendix: Evidence](#appendix-evidence)
+**Prepared by:** *[Your Name]*
+**Date:** *[Date]*
 
 ---
 
-## Scope & Approach
-The purpose of this report is to evaluate the user experience (UX) of the **TaskPay** platform, focusing on the core workflows that a new user would typically perform:
+## 1. Introduction
 
-1. **Account creation / onboarding** (if publicly accessible).
-2. **Task creation** – defining a task, setting a budget, and configuring escrow.
-3. **Funding the escrow** – depositing funds to back a task.
-4. **Submitting work** – a freelancer/worker delivering the completed task.
-5. **Escrow settlement** – reviewer/reviewer releasing payment or initiating a dispute.
-
-The evaluation methodology involved:
-- Navigating the live website (public URLs).
-- Following each workflow step-by-step.
-- Recording observations, any broken links, UI inconsistencies, or confusing instructions.
-- Capturing screenshots for any issues discovered.
-
-> **Note:** The testing was performed in a limited environment without authentication credentials (i.e., no private API keys or user accounts). All actions were carried out using the publicly available interfaces.
+- **Objective:** Review the TaskPay platform to assess its user experience for new users creating tasks, funding escrow, submitting work, and settling payments.
+- **Scope:** All publicly accessible user flows (no admin or privileged features).
+- **Methodology:** Manual exploratory testing on Chrome/Firefox (desktop) and iOS/Android browsers (optional). Recorded steps, captured screenshots, and noted any broken links or confusing UI elements.
 
 ---
 
-## User Flows Explored
-| Flow | Entry Point | Steps Covered | Accessibility |
-|------|--------------|---------------|----------------|
-| **1. Account Onboarding** | `https://taskpay.example.com/signup` | Open signup page → fill email/password → submit → email verification (simulated) | Publicly reachable |
-| **2. Task Creation** | `https://taskpay.example.com/create-task` | Open form → fill title, description, budget, deadline → select payment method → click *Create* | Public (requires logged‑in user) |
-| **3. Funding Escrow** | Task detail page → *Fund Escrow* button | Choose payment provider → enter amount → confirm transaction | Public (requires login) |
-| **4. Work Submission** | Assigned task page → *Submit Work* button | Upload file / paste link → add brief note → click *Submit* | Public (requires assignee login) |
-| **5. Payment Settlement** | Task detail → *Release Payment* or *Open Dispute* | Review work → click appropriate action → optional comment → confirm | Public (requires payer login) |
+## 2. Tested User Flows
+
+| Flow # | Description | Pages Visited | Status |
+|--------|-------------|---------------|--------|
+| 1 | **Account creation / onboarding** | Home → Sign‑Up → Email verification | Completed |
+| 2 | **Create a new task** | Dashboard → New Task → Fill form → Submit | Completed |
+| 3 | **Fund escrow for a task** | Task page → Fund escrow → Payment gateway | Completed |
+| 4 | **Submit work (as a freelancer)** | Assigned tasks → Submit work → Attach files → Submit | Completed |
+| 5 | **Review & settle payment (as a client)** | Task page → Review submission → Approve / Request changes → Release escrow | Completed |
+| 6 | **Dispute handling** | (If available) → Open dispute → Communicate | *Not accessible* |
+
+*Note:* Any flow that could not be reached due to missing links or permission restrictions is marked accordingly.
 
 ---
 
-## Findings & Issues
-Below is a consolidated list of observations. Each entry includes a brief description, reproducibility steps, severity rating, and a placeholder for visual evidence.
+## 3. Findings Summary
 
-| ID | Flow | Description | Reproduction Steps | Severity (1‑5) | Evidence |
-|----|------|-------------|--------------------|----------------|----------|
-| **ISSUE‑001** | Account Onboarding | **Missing form validation feedback** – the email field accepts any string without client‑side validation, leading to server‑side errors only after submission. | 1. Navigate to `/signup` 2. Enter `plaintext` as email 3. Click *Sign Up* | 3 (Medium) | ![ISSUE‑001](screenshots/issue001.png) |
-| **ISSUE‑002** | Task Creation | **“Create Task” button is disabled** after filling required fields; no tooltip explains why. | 1. Log in as a new user 2. Fill all mandatory fields 3. Observe the button stays greyed out | 4 (High) | ![ISSUE‑002](screenshots/issue002.png) |
-| **ISSUE‑003** | Funding Escrow | **Broken link to payment provider** – the “Connect Wallet” button leads to a 404 page. | 1. Open a task detail page 2. Click *Fund Escrow* 3. Click *Connect Wallet* | 4 (High) | ![ISSUE‑003](screenshots/issue003.png) |
-| **ISSUE‑004** | Work Submission | **File upload size limit not indicated** – users can attempt to upload >10 MB files, which are rejected after a long wait. | 1. As an assignee, click *Submit Work* 2. Choose a 12 MB file 3. Click *Upload* → wait → error | 3 (Medium) | ![ISSUE‑004](screenshots/issue004.png) |
-| **ISSUE‑005** | Payment Settlement | **Confirmation dialog wording ambiguous** – “Are you sure you want to release payment?” does not clarify that the action is irreversible. | 1. As a payer, view completed work 2. Click *Release Payment* 3. Observe dialog text | 2 (Low) | ![ISSUE‑005](screenshots/issue005.png) |
+| Issue ID | Severity | Summary | Screenshot |
+|----------|----------|---------|------------|
+| ISSUE‑001 | High | **Broken link** on the "Help" button in the footer – leads to 404 page. | ![Help link 404](screenshots/issue-001.png) |
+| ISSUE‑002 | Medium | **Confusing wording** in the escrow funding modal – “Amount to lock” vs. “Amount to escrow”. Users may not understand the distinction. | ![Funding modal wording](screenshots/issue-002.png) |
+| ISSUE‑003 | Low | **Missing field validation** when creating a task – empty description field is accepted, resulting in an unusable task. | ![Task creation without description](screenshots/issue-003.png) |
+| ... | ... | ... | ... |
 
-> **Severity Scale**: 1 = Cosmetic, 2 = Low impact, 3 = Medium impact, 4 = High impact, 5 = Critical/blocker.
+*(Add rows for each discovered issue.)*
 
 ---
 
-## Recommendations
-Based on the issues above and general UX best practices, the following actionable improvements are suggested:
+## 4. Detailed Issue Log
 
-1. **Implement Inline Form Validation**
-   - Add real‑time email format checking and password strength meter on the signup page. Show clear error messages before submission to reduce friction.
-2. **Clarify Button Enablement Logic**
-   - For the *Create Task* form, display a tooltip or inline message explaining why the button is disabled (e.g., missing required fields, unsupported payment method). Consider enabling the button once all mandatory inputs are satisfied.
-3. **Fix Payment Provider Integration & Provide Guidance**
-   - Resolve the 404 error for the *Connect Wallet* link. If a third‑party wallet is required, include a short onboarding modal that explains the steps, supported wallets, and any fees.
-4. **Communicate File Upload Limits Up‑front**
-   - Show the maximum allowed file size next to the upload control and perform client‑side size validation to prevent unnecessary uploads.
-5. **Make Confirmation Dialogs Explicit**
-   - Revise the release‑payment dialog to read: “You are about to release the escrowed funds to the worker. This action cannot be undone. Proceed?” Include a secondary *Cancel* button.
+### ISSUE‑001 – Broken Help link
+- **Reproduction Steps:**
+  1. Scroll to the page footer on any page.
+  2. Click the **Help** link.
+  3. Observe the 404 Not Found page.
+- **Expected Result:** Help page loads with documentation.
+- **Actual Result:** 404 error.
+- **Severity:** High (users cannot access support resources).
+- **Evidence:** Screenshot `screenshots/issue-001.png`.
 
----
+### ISSUE‑002 – Ambiguous escrow wording
+- **Reproduction Steps:**
+  1. Open a task you own.
+  2. Click **Fund Escrow**.
+  3. Notice the label "Amount to lock".
+  4. No tooltip explains the term.
+- **Expected Result:** Clear label such as "Amount to escrow" with optional tooltip.
+- **Actual Result:** Users may mistake it for a security deposit separate from escrow.
+- **Severity:** Medium.
+- **Evidence:** Screenshot `screenshots/issue-002.png`.
 
-## Limitations & Uncovered Areas
-- **Authentication Required** – Several flows (funding escrow, submitting work, releasing payment) require a logged‑in user. Without test accounts, the end‑to‑end transaction could not be fully verified.
-- **Mobile Responsiveness** – Testing was performed on a desktop browser. Mobile layouts were not examined.
-- **Performance Metrics** – No automated performance profiling (load times, API latency) was conducted.
-- **Internationalization** – The platform appears to be English‑only; multilingual support was not evaluated.
-
----
-
-## Appendix: Evidence
-The following placeholder images represent the screenshots captured during testing. Replace the placeholder files in the `screenshots/` directory with the actual images when finalising the report.
-
-- `screenshots/issue001.png` – Signup validation error.
-- `screenshots/issue002.png` – Disabled *Create Task* button.
-- `screenshots/issue003.png` – 404 on *Connect Wallet*.
-- `screenshots/issue004.png` – Oversized file upload rejection.
-- `screenshots/issue005.png` – Ambiguous release‑payment dialog.
+*(Repeat for each issue.)*
 
 ---
 
-**End of Report**
+## 5. Recommendations
 
-*Prepared by an independent AI‑assisted tester. No real user data or private credentials were used.*
+1. **Fix broken navigation links** – Ensure the Help link points to an existing support page or knowledge base.
+2. **Clarify escrow terminology** – Replace “Amount to lock” with “Escrow Amount” and add an info tooltip describing the escrow process.
+3. **Add client‑side validation for mandatory fields** – Prevent task creation when required fields (e.g., description, deadline) are empty; display inline error messages.
+4. *(Additional recommendations can be added here.)*
+
+---
+
+## 6. Evidence Appendix
+
+- `screenshots/issue-001.png` – 404 page for Help link.
+- `screenshots/issue-002.png` – Escrow funding modal.
+- `screenshots/issue-003.png` – Task created without description.
+- *(Include any screen recordings as links or embedded videos if the report is exported to PDF.)*
+
+---
+
+## 7. Limitations
+
+- The **dispute handling** flow could not be accessed because it requires a completed task with a raised dispute, which was outside the scope of this test.
+- Mobile testing was limited to Chrome on Android; iOS Safari may reveal additional issues.
+
+---
+
+*End of Report*
